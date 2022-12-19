@@ -1,10 +1,10 @@
 {
-    "name": "caiyu/php-rabbitmq",
+    "name": "burning/php-rabbitmq",
     "description": "php整合rabbitmq进行消息中间件系统开发",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Caiyu\\PhpRabbitmq\\": "src/"
+            "Burning\\PhpRabbitmq\\": "src/"
         }
     },
     "authors": [
