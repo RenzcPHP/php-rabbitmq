@@ -9,4 +9,9 @@ class Hello
         return "Hello world!";
     }
 
+    public static function burning()
+    {
+        return "Hello burning!";
+
+    }
 }
