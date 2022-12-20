@@ -2,7 +2,7 @@
 
 namespace Burning\PhpRabbitmq;
 
-use Rex\MessageQueue\MessageQueueManager;
+use Burning\PhpRabbitmq\MessageQueueManager;
 
 class MQServiceProvider
 {

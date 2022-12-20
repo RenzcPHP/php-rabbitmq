@@ -2,7 +2,7 @@
 
 namespace Burning\PhpRabbitmq\Connectors;
 
-use Illuminate\Queue\Connectors\ConnectorInterface;
+use Burning\PhpRabbitmq\Contracts\MessageQueueContract;
 use PhpAmqpLib\Connection\AMQPSSLConnection;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use Burning\PhpRabbitmq\Drivers\AMQP;
@@ -16,7 +16,7 @@ class AMQPConnector implements ConnectorInterface
      *
      * @param array $config
      *
-     * @return Valsun\MessageQueue\Contracts\MessageQueueContract
+     * @return MessageQueueContract
      */
     public function connect(array $config)
     {
