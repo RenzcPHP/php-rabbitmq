@@ -24,6 +24,12 @@ class MessageQueueManager
      */
     protected $connectors = [];
 
+    /**
+     * mq链接名称
+     * @var null
+     */
+    protected $connectionName = null;
+
     public function __construct($app)
     {
         $this->app = $app;
@@ -37,8 +43,9 @@ class MessageQueueManager
      */
     public function connection($name = null): AMQP
     {
+        $this->connectionName = $name;
         $name = $name ?: $this->getDefaultDriver();
-
+        
         if (!isset($this->connections[$name])) {
             $this->connections[$name] = $this->resolve($name);
             $this->connections[$name]->setContainer($this->app);
@@ -54,7 +61,8 @@ class MessageQueueManager
      */
     public function getDefaultDriver()
     {
-        return $this->app['config']['mqDefaultDriver'];
+        // tms
+        return $this->app['config']['default'];
     }
 
     /**
@@ -101,7 +109,7 @@ class MessageQueueManager
 
     public function __call($method, $parameters)
     {
-        return $this->connection()->$method(...$parameters);
+        return $this->connection($this->connectionName)->$method(...$parameters);
     }
 }
 

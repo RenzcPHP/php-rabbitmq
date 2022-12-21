@@ -20,10 +20,16 @@ class MQServiceProvider
      * @var null
      */
     private $mq = null;
+    /**
+     * mq配置
+     * @var array
+     */
+    private $queuesConfig = [];
 
-    public function __construct($connection)
+    public function __construct($queuesConfig)
     {
         if (is_null($this->mq)){
+            $this->queuesConfig = $queuesConfig;
             $this->init();
         }
     }
@@ -42,12 +48,13 @@ class MQServiceProvider
      */
     public function register()
     {
-        $queues_config = config('mq.connections');
+        $queues_config = $this->queuesConfig;//config('mq.connections');
         $queues_config = $queues_config ?? [];
         $this->app['config']['mqDefaultDriver'] = "amqp";
         foreach ($queues_config as $key => $config) {
             if ($config['driver'] == self::$driver) {
-                $this->app['config'][$key] = $config;
+                $amqpConfigPath = __DIR__ . '/config/amqp.php';
+                $this->app['config'][$key] = array_merge(require $amqpConfigPath, $config);
             }
         }
     }
@@ -68,7 +75,14 @@ class MQServiceProvider
     {
         $app = $this->app;
 
-        $appFunction = function ($app) {
+        $manager = new MessageQueueManager($app);
+        $manager->addConnector(self::$driver, function(){
+            return new Connectors\AMQPConnector;
+        });
+
+        $this->mq = $manager;
+
+        /*$appFunction = function ($app) {
             return $this->tap(new MessageQueueManager($app), function($manager){
                 $manager->addConnector(self::$driver, function(){
                     return new Connectors\AMQPConnector;
@@ -76,16 +90,11 @@ class MQServiceProvider
             });
         };
 
-        $this->mq = $appFunction($app);
+        $this->mq = $appFunction($app);*/
+    }
 
-        /*
-        $this->app->singleton('mq', function ($app) {
-            return tap(new MessageQueueManager($app), function($manager){
-                $manager->addConnector(self::$driver, function(){
-                    return new Connectors\AMQPConnector;
-                });
-            });
-        });*/
-
+    public function getMqClient()
+    {
+        return $this->mq;
     }
 }
