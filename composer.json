@@ -1,6 +1,6 @@
 {
     "name": "burning/php-rabbitmq",
-    "description": "php整合rabbitmq进行消息中间件系统开发",
+    "description": "封装rabbitmq",
     "license": "MIT",
     "autoload": {
         "psr-4": {
@@ -10,7 +10,7 @@
     "authors": [
         {
             "name": "任志才",
-            "email": "zhicai.ren@patpat.com"
+            "email": "928692509@qq.com"
         }
     ],
     "minimum-stability": "dev",
