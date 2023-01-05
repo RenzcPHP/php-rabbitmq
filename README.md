@@ -5,7 +5,7 @@
 
 ## 一、安装
 ```
-composer require burning/php-rabbitmq dev-main
+composer require burning/php-rabbitmq
 ```
 
 ## 二、配置
