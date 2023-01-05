@@ -97,7 +97,7 @@ $config["new_rabbitmq"]['connections'] = [
 ```
 
 ## 三、使用示例
-### 生产消息
+### 生产消息 详情可查看composer包中examples目录下的 ProduceMqMsg.php文件
 ```php
 try {
 	// 加载mq配置
@@ -139,7 +139,7 @@ try {
 }
 ```
 
-### 消费消息
+### 消费消息 详情可查看composer包中examples目录下的 ConsumeMqMsg.php文件
 ```php
 
 try {
